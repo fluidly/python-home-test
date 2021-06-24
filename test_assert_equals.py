@@ -50,6 +50,11 @@ def test_error_list_items_length():
         assert_equals([[1, 2], [3, 4]], [[1, 2, 3], [3, 4]])
 
 
-def test_error_list_items_list():
+def test_error_list_items_list_int():
     with pytest.raises(Exception, match="Expected 4 but found 5"):
         assert_equals([[1, 2], [3, 4]], [[1, 2], [3, 5]])
+
+
+def test_error_list_items_list_string():
+    with pytest.raises(Exception, match="Expected \"d\" but found \"e\""):
+        assert_equals([["a", "b"], ["c", "d"]], [["a", "b"], ["c", "e"]])
