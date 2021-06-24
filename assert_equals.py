@@ -1,15 +1,4 @@
 def assert_equals(expected, actual):
-    _assert_equals(expected, actual)
-
-    if type(expected) == list:
-        if len(expected) != len(actual):
-            raise Exception(f"Expected list length {len(expected)} but found {len(actual)}")
-        else:
-            for i in range(len(expected)):
-                _assert_equals(expected[i], actual[i])
-
-
-def _assert_equals(expected, actual):
     expected_type = type(expected)
     actual_type = type(actual)
 
@@ -21,3 +10,9 @@ def _assert_equals(expected, actual):
     elif expected_type == int:
         if expected != actual:
             raise Exception(f"Expected {expected} but found {actual}")
+    elif expected_type == list:
+        if len(expected) != len(actual):
+            raise Exception(f"Expected list length {len(expected)} but found {len(actual)}")
+        else:
+            for i in range(len(expected)):
+                assert_equals(expected[i], actual[i])

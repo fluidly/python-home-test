@@ -43,3 +43,13 @@ def test_error_list_items_string():
 def test_error_list_items_int():
     with pytest.raises(Exception, match="Expected 2 but found 3"):
         assert_equals([1, 2], [1, 3])
+
+
+def test_error_list_items_length():
+    with pytest.raises(Exception, match="Expected list length 2 but found 3"):
+        assert_equals([[1, 2], [3, 4]], [[1, 2, 3], [3, 4]])
+
+
+def test_error_list_items_list():
+    with pytest.raises(Exception, match="Expected 4 but found 5"):
+        assert_equals([[1, 2], [3, 4]], [[1, 2], [3, 5]])
