@@ -8,7 +8,7 @@ def test_no_error_string():
 
 
 def test_error_string():
-    with pytest.raises(Exception, match="Expected \"abcef\" but found \"abc\""):
+    with pytest.raises(Exception, match='Expected "abcef" but found "abc"'):
         assert_equals("abcef", "abc")
 
 
@@ -23,7 +23,7 @@ def test_error_integer():
 
 def test_error_type_coercion():
     with pytest.raises(Exception, match="Expected type int but found type str"):
-        assert_equals(1, '1')
+        assert_equals(1, "1")
 
 
 def test_no_error_list():
@@ -36,7 +36,7 @@ def test_error_list_length():
 
 
 def test_error_list_items_string():
-    with pytest.raises(Exception, match="Expected \"b\" but found \"d\""):
+    with pytest.raises(Exception, match='Expected "b" but found "d"'):
         assert_equals(["a", "b"], ["a", "d"])
 
 
@@ -56,5 +56,29 @@ def test_error_list_items_list_int():
 
 
 def test_error_list_items_list_string():
-    with pytest.raises(Exception, match="Expected \"d\" but found \"e\""):
+    with pytest.raises(Exception, match='Expected "d" but found "e"'):
         assert_equals([["a", "b"], ["c", "d"]], [["a", "b"], ["c", "e"]])
+
+
+def test_no_error_dict():
+    assert_equals({"a": "b"}, {"a": "b"})
+
+
+def test_error_dict_keys_length():
+    with pytest.raises(Exception, match='Expected dict with key "c"'):
+        assert_equals({"a": "b", "c": "d"}, {"a": "b"})
+
+
+def test_error_dict_values_string():
+    with pytest.raises(Exception, match='Expected "b" but found "c"'):
+        assert_equals({"a": "b"}, {"a": "c"})
+
+
+def test_error_dict_values_list():
+    with pytest.raises(Exception, match="Expected type int but found type str"):
+        assert_equals({"a": [1, 2, 3]}, {"a": [1, 2, "3"]})
+
+
+def test_error_dict_extra_key():
+    with pytest.raises(Exception, match='Found unexpected key "c"'):
+        assert_equals({"a": "b"}, {"a": "b", "c": "d"})
